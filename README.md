@@ -1,2 +1,1 @@
-# codes_C
- My collection of codes
+Сборник кодов по теме "Строки" в Си
