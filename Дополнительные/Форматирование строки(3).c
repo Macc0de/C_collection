@@ -1,5 +1,4 @@
 // Функция принимает строку, заменяет все пробелы на _
-#define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <stdlib.h>
 
