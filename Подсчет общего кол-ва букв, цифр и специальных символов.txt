@@ -1,0 +1,32 @@
+// Подсчет общего кол-ва букв, цифр и специальных символов(пробел) в строке
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h> // isalpha
+
+void func(char* msg)
+{
+	int alphabets = 0;
+	int digits = 0;
+	int special_characters = 0;
+	int i = 0;
+	for (i = 0; msg[i] != '\0'; i++) {
+		if (isalpha(msg[i])) { // проверяет на букву
+			alphabets++;
+		}
+		else if (isdigit(msg[i])) {
+			digits++;
+		}
+		else if (msg[i] == ' ')
+			special_characters++;
+	}
+	printf("Total score: %d %d %d ", alphabets, digits, special_characters);
+}
+
+int main()
+{
+	char msg[30];
+	fgets(msg, 30, stdin);
+	func(msg);
+	return 0;
+}

@@ -1,0 +1,39 @@
+// Найти самый часто встречаемый символ в строке
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void func(char* msg) {
+	int i, j;
+	int count[30] = { 0 };
+	int len = strlen(msg);
+	for (i = 0; i < len; i++){
+		for (j = i; j < len; j++) { // j = i - ищем с текущего символа
+			if (msg[i] == msg[j]) // tolower тут
+			{
+				count[i]++;
+			}
+		}
+	}
+	int max_count = 0;
+	int max_index = 0;
+	for (int j = 0; j < len; j++) // можно и i
+	{
+		if (count[j] > max_count)
+		{
+			max_count = count[j];
+			max_index = j; // будет выводить по индексу символ которые повтор
+		}
+	}
+	printf("%c ", msg[max_index]); 
+	printf("%d ", max_count); // кол-во потвор символов
+}
+
+int main()
+{
+	char msg[30];
+	fgets(msg, 30, stdin);
+	func(msg);
+	return 0;
+}
