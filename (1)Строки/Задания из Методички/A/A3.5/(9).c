@@ -1,4 +1,4 @@
-// 3) По заданному слову P дает минимальный порядковый номер этого слова в предложении, если оно там встречается, или 0, если его там нет
+// По букве и целому K заменяет K-ю от конца букву каждого слова предложения на заданную букву и все измененные слова распечатывает
 #include <stdio.h>
 #include <string.h>
 #include "Header.h"
@@ -23,29 +23,20 @@ void func(char* msg)
 		return;
 	}
 	
-	char P[20]; // Надо char* - строка(для слов)
-	scanf("%s", P); // Без &
-	int current_index = 0, min_index = -1;
+	int K = 0;
+	char P;
+	scanf("%d", &K); // Номер буквы в слове
+	getchar();
+	scanf("%c", &P); 
+
 	char* token = strtok(msg, " ");
-	
 	while (token != NULL) 
 	{
 		int len = strlen(token);
-		if (strcmp(token, P) == 0) 
-		{
-			min_index = current_index;
-			break; // Следующая итерация не нужна, выход из цикла
-		}
-		current_index++; 
+		token[len - K] = P; // Конкретный символ слова
+		printf("%s ", token);
 		token = strtok(NULL, " ");
 	}
-	if (min_index == -1) 
-	{
-		printf("Not found");
-		return;
-	}
-	
-	printf("%d ", current_index);
 }
 
 int main()

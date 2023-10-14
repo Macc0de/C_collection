@@ -1,53 +1,52 @@
-// По заданному целому K и букве P дает кол-во вхождений буквы P в K-е слово предложения
+// По букве и целому K строит вектор номеров строк, содержащих эту букву в K-й позиции
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include "Header.h"
 
-void func(char* msg) 
+int* func(char* msg) 
 {
 	// Проверки
 	if (msg == NULL || msg[0] == '\n')
 	{
 		printf("No!");
-		return;
+		return NULL;
 	}
 	int status = isvalid(msg, 20, 30);
 	if (status == 1) 
 	{
 		printf("Too many letters");
-		return;
+		return NULL;
 	}
 	else if (status == 2) 
 	{
 		printf("Too many words");
-		return;
+		return NULL;
 	}
 	
 	int K = 0;
-	char P;
-	int len = 0;
-	scanf("%d", &K); // Номер слова
-	getchar(); // Убирает перенос строки от первого scanf
-	scanf("%c", &P); 
+	char P; // Буква
+	scanf("%d", &K); 
+	getchar(); 
+	scanf("%c", &P);   
 	
+	int* sum = (int*)malloc(30 * sizeof(int)); 
+	memset(sum, 0, 30); // Без него не работает - заполняет память нулями
+	int index = 0;
+
 	char* token = strtok(msg, " ");
-	int counter = 0;
 	int count_ident = 0;
-	
 	while (token != NULL) 
 	{
-		if (K == count_ident) // = номеру текущего слова
+		if (token[K] == P) 
 		{
-			for (int i = 0; token[i] != '\0'; i++) // Цикл в нужном слове
-			{
- 				if (token[i] == P) 
-					counter++;
-			}
-			printf("%s %d", token, counter);
+			sum[index++] = count_ident;
 		}
 		count_ident++;
 		token = strtok(NULL, " ");
 	}
+	
+	return sum;
 }
 
 int main()
@@ -65,7 +64,10 @@ int main()
 	*/
 	msg[len - 1] = '\0';
 	
-	func(msg);
+	int* res = func(msg);
+	
+	for (int i = 0; res[i] != 0; i++) 
+		printf("%d ", res[i]); // Номера слов
 	
 	return 0;
 }

@@ -47,7 +47,8 @@ int main()
 	fgets(msg, 600, stdin);
 	
 	int len = strlen(msg);
-	if (msg[len - 2] != '.' && msg[len - 2] != '!' && msg[len - 2] != '?') {
+	if (msg[len - 2] != '.' && msg[len - 2] != '!' && msg[len - 2] != '?') 
+	{
 		printf("No!!!");
 		return 1;
 	}

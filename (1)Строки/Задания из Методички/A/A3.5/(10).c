@@ -1,4 +1,4 @@
-// 3) По заданному слову P дает минимальный порядковый номер этого слова в предложении, если оно там встречается, или 0, если его там нет
+// По заданному слову P определяет, встречается ли это слово в предложении не менее двух раз
 #include <stdio.h>
 #include <string.h>
 #include "Header.h"
@@ -23,29 +23,21 @@ void func(char* msg)
 		return;
 	}
 	
-	char P[20]; // Надо char* - строка(для слов)
-	scanf("%s", P); // Без &
-	int current_index = 0, min_index = -1;
+	char P[20];
+	scanf("%s", P);
+	
+	int counter = 0;
 	char* token = strtok(msg, " ");
 	
 	while (token != NULL) 
 	{
-		int len = strlen(token);
-		if (strcmp(token, P) == 0) 
+		if (strcmp(token, P) == 0)
 		{
-			min_index = current_index;
-			break; // Следующая итерация не нужна, выход из цикла
+			counter++;
 		}
-		current_index++; 
 		token = strtok(NULL, " ");
 	}
-	if (min_index == -1) 
-	{
-		printf("Not found");
-		return;
-	}
-	
-	printf("%d ", current_index);
+	printf("Meet %d times", counter);
 }
 
 int main()

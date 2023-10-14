@@ -84,10 +84,12 @@ int main()
 	
 	int len = strlen(msg);
 	/*
-	if (msg[len - 2] != '.' && msg[len - 2] != '!' && msg[len - 2] != '?') {
+	if (msg[len - 2] != '.' && msg[len - 2] != '!' && msg[len - 2] != '?') 
+	{
 		printf("No!!!");
 		return 1;
-	} */
+	} 
+	*/
 	msg[len - 1] = '\0';
 	
 	func(msg);
