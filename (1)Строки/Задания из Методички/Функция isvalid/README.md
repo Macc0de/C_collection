@@ -2,4 +2,4 @@
 
 (header.h) - Заголовочный файл, который подключается к main файлу для использования функции
 
-https://github.com/Macc0de/codes_C/assets/138070020/05be9a4c-6517-41d9-8844-554aa3dfd904
+![Screenshot_1](https://github.com/Macc0de/codes_C/assets/138070020/05be9a4c-6517-41d9-8844-554aa3dfd904)
