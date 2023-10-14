@@ -1,1 +1,1 @@
-![photo_2023-10-14_12-17-23](https://github.com/Macc0de/codes_C/assets/138070020/e9931aab-3eb6-4b83-abf2-a5c0070e9ec8)
+![photo](https://github.com/Macc0de/Learning_of_C/assets/138070020/9ea09858-04e7-4d2d-bd75-3fdb782d0476)
