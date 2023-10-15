@@ -38,7 +38,7 @@ int func(int A[N])
 		count++;
 	}
 	
-	printf("\nSum: %d, Count: %d", result, count);
+	printf("\nSum: %d. Count: %d", result, count);
 	// Кол-во (index_last-index_chet)
 	return 0;
 }
