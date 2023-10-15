@@ -4,7 +4,7 @@
 #include <math.h>
 #define N 5
 
-int func(int A[N])
+int func(int A[])
 {
 	int i, index_chet = 0;
 	for (i = 0; i < N; i++)
