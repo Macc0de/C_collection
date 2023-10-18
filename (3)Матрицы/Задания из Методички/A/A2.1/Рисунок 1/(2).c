@@ -29,7 +29,7 @@ int func(int N, float A[][], float B[][])
 		}
 	}
 	
-	printf("\nSum: %.1f\n\n", sum);
+	printf("Sum: %.1f\n\n", sum);
 	
 	for (int i = 0; i < N; i++) // Результирующая
 	{
