@@ -16,7 +16,6 @@ int check(int arr[], int M)
 	{
 		if (arr[i] < 0 || arr[i - 1] < 0)
 			return 0;
-		
 		if (arr[i - 1] > arr[i]) // Не отсортирован
 			return 0;
     }
