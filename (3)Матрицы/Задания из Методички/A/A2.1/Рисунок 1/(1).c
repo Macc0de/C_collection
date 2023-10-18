@@ -41,7 +41,7 @@ int func(int N, float A[][], float B[][])
 		}
 	}
 	
-	printf("\nMin: %.1f\n\n", min);
+	printf("Min: %.1f\n\n", min);
 	
 	for (int i = 0; i < N; i++) // Результирующая
 	{
