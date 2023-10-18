@@ -1,14 +1,15 @@
 /*
-(1) Минимум
+(4) Сумма модулей
 
-1 2 3 4 5
-8 9 0 3 -1
-3 2 5 6 7
-6 6 6 6 2
--10 -12 0 3 4
+1 2 1 1 5
+1 1 0 0 -1
+0 0 0 1 7
+-1 -2 0 0 2
+-1 -2 0 0 4
+Answer: 14
 */
 #include <stdio.h>
-#include <math.h>
+#include <math.h> 
 
 int is_func_valid(int i, int j) // Проверка на рисунок
 {
@@ -17,37 +18,25 @@ int is_func_valid(int i, int j) // Проверка на рисунок
 
 int func(int N, float A[][], float B[][])
 {
-	float min = 0.0;
-	for (int i = 0; i < N; i++) // Минимум
+	float sum_mod = 0.0;
+	for (int i = 0; i < N; i++) // Сумма модулей
 	{
 		for (int j = 0; j < N; j++)
 		{
 			if (is_func_valid(i, j))
 			{
-				min = A[i][j];
+				sum_mod += fabs(A[i][j]);
 			}
 		}
 	}
 	
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			if (is_func_valid(i, j)) // Рисунок
-			{
-				if (A[i][j] < min)
-					min = A[i][j];
-			}
-		}
-	}
-	
-	printf("\nMin: %.1f\n\n", min);
+	printf("\nSumma modylei: %.1f\n\n", sum_mod);
 	
 	for (int i = 0; i < N; i++) // Результирующая
 	{
 		for (int j = 0; j < N; j++)
 		{
-			B[i][j] = min;
+			B[i][j] = sum_mod;
 		}
 	}
 	

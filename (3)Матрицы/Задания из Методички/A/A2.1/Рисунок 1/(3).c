@@ -1,11 +1,13 @@
-/*
-(1) Минимум
+/* 
+(3) Максимум
 
-1 2 3 4 5
-8 9 0 3 -1
-3 2 5 6 7
-6 6 6 6 2
--10 -12 0 3 4
+2 3 4 4 5 800
+11 1 0 100 -1 890
+90 0 0 81 7 50
+1 12 101 91 2 0 
+1 13 0 105 4 1000
+0 0 0 8 9 7
+Answer: 105
 */
 #include <stdio.h>
 #include <math.h>
@@ -17,14 +19,14 @@ int is_func_valid(int i, int j) // Проверка на рисунок
 
 int func(int N, float A[][], float B[][])
 {
-	float min = 0.0;
-	for (int i = 0; i < N; i++) // Минимум
+	float max = 0.0;
+	for (int i = 0; i < N; i++) // Максимум
 	{
 		for (int j = 0; j < N; j++)
 		{
 			if (is_func_valid(i, j))
 			{
-				min = A[i][j];
+				max = A[i][j];
 			}
 		}
 	}
@@ -33,21 +35,21 @@ int func(int N, float A[][], float B[][])
 	{
 		for (int j = 0; j < N; j++)
 		{
-			if (is_func_valid(i, j)) // Рисунок
+			if (is_func_valid(i, j))
 			{
-				if (A[i][j] < min)
-					min = A[i][j];
+				if (A[i][j] > max)
+					max = A[i][j];
 			}
 		}
 	}
 	
-	printf("\nMin: %.1f\n\n", min);
+	printf("\nMax: %.1f\n\n", max);
 	
 	for (int i = 0; i < N; i++) // Результирующая
 	{
 		for (int j = 0; j < N; j++)
 		{
-			B[i][j] = min;
+			B[i][j] = max;
 		}
 	}
 	
