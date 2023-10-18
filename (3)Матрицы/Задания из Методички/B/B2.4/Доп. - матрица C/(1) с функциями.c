@@ -1,4 +1,4 @@
-/*
+/* С функциями для каждого действия
 Дополнение к (6):
 (1) C=(A+E)*B
 
@@ -21,13 +21,10 @@ A+E
 */
 #include <stdio.h>
 
-int func(int N, int A[][])
+void Mat_E(int N, int E[][])
 {
-	int i, j, k;
-	int B[N][N], E[N][N], Summa[N][N], C[N][N];
-	
-	printf("\n");
-	for (i = 0; i < N; i++) // E
+	int i, j;
+	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
 		{
@@ -37,9 +34,11 @@ int func(int N, int A[][])
 				E[i][j] = 0;
 		}
 	}
-	
-	printf("Matrix B:\n");
-	
+}
+
+void Mat_B(int N, int A[][], int B[][])
+{
+	int i, j;
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
@@ -56,9 +55,11 @@ int func(int N, int A[][])
 		}
 		printf("\n");
 	}
-	
-	printf("\n(A+E):\n");
-	
+}
+
+void Mat_Summa(int N, int Summa[][], int A[][], int E[][])
+{
+	int i, j;
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
@@ -75,14 +76,16 @@ int func(int N, int A[][])
 		}
 		printf("\n");
 	}
-	
-	printf("\n(A+E)*B:\n");
-	
+}
+
+void Mat_Result(int N, int C[][], int Summa[][], int B[][])
+{
+	int i, j, k;
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
 		{
-			C[i][j] = 0; // Важно
+			C[i][j] = 0;
 			for (k = 0; k < N; k++)
 			{
 				C[i][j] += Summa[i][k] * B[k][j];
@@ -98,6 +101,23 @@ int func(int N, int A[][])
 		}
 		printf("\n");
 	}
+}
+
+int func(int N, int A[][])
+{	
+	int B[N][N], E[N][N], Summa[N][N], C[N][N];
+	printf("\n");
+	
+	Mat_E(N, E);
+	
+	printf("Matrix B:\n");
+	Mat_B(N, A, B);
+	
+	printf("\n(A+E):\n");
+	Mat_Summa(N, Summa, A, E);
+	
+	printf("\n(A+E)*B:\n");
+	Mat_Result(N, C, Summa, B);
 	
 	return 0;
 }

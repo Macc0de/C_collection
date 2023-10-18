@@ -1,6 +1,6 @@
 /*
 Дополнение к (6):
-(1) C=(A+E)*B
+(4) C=(B+E)*(A-E)
 
 A
 1 0 2
@@ -10,23 +10,27 @@ B
 6 3 1
 7 4 0
 8 3 2
-A+E
-2 0 2
-3 5 3
-6 7 9
-(A+E)*B
-28	12	6
-77	38	9
-157	73	24
+B+E
+7 3 1
+7 5 0
+8 3 3
+A-E
+0 0 2
+3 3 3
+6 7 7
+(B+E)*(A-E)=(Summa)*(Dif)
+15	16	30
+15	15	29
+27	30	46
 */
 #include <stdio.h>
 
 int func(int N, int A[][])
 {
-	int i, j, k;
-	int B[N][N], E[N][N], Summa[N][N], C[N][N];
-	
+	int i, j, k;	
+	int B[N][N], E[N][N], C[N][N], Summa[N][N], Dif[N][N];
 	printf("\n");
+	
 	for (i = 0; i < N; i++) // E
 	{
 		for (j = 0; j < N; j++)
@@ -39,7 +43,6 @@ int func(int N, int A[][])
 	}
 	
 	printf("Matrix B:\n");
-	
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
@@ -57,13 +60,12 @@ int func(int N, int A[][])
 		printf("\n");
 	}
 	
-	printf("\n(A+E):\n");
-	
+	printf("\n(B+E):\n");
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
 		{
-			Summa[i][j] = A[i][j] + E[i][j];
+			Summa[i][j] = B[i][j] + E[i][j];
 		}
 	}
 	
@@ -76,16 +78,33 @@ int func(int N, int A[][])
 		printf("\n");
 	}
 	
-	printf("\n(A+E)*B:\n");
+	printf("\n(A-E):\n");
+	for (i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			Dif[i][j] = A[i][j] - E[i][j];
+		}
+	}
 	
 	for (i = 0; i < N; i++)
 	{
 		for (j = 0; j < N; j++)
 		{
-			C[i][j] = 0; // Важно
+			printf("%d ", Dif[i][j]);
+		}
+		printf("\n");
+	}
+	
+	printf("\n(Summa)*(Dif):\n");
+	for (i = 0; i < N; i++)
+	{
+		for (j = 0; j < N; j++)
+		{
+			C[i][j] = 0;
 			for (k = 0; k < N; k++)
 			{
-				C[i][j] += Summa[i][k] * B[k][j];
+				C[i][j] += Summa[i][k] * Dif[k][j];
 			}
 		}
 	}
