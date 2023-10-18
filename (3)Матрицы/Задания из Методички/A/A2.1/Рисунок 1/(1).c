@@ -79,7 +79,6 @@ int main()
 		printf("Error");
 	
 	float A[N][N], B[N][N];
-	
 	for (i = 0; i < N; i++) 
 	{
 		for (j = 0; j < N; j++)
