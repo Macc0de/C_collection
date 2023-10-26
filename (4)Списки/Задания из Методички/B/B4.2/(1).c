@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct List // Двусвязный
+struct List // Двухсвязный
 {
 	int data;
 	struct List* Next;
