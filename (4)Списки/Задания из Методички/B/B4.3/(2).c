@@ -33,7 +33,7 @@ void addToList(struct List** head, int value)
 
 int main()
 {
-	int array1[] = {6,80,8,9,10,11}; //{1,3,5,8,9,10};
+	int array1[] = {6,7,8,9,10,3}; //{1,3,5,8,9,10};
 	//{2,3,4,5,6,7,8};
 	int i;
 	for (i = 0; i < sizeof(array1)/sizeof(int); i++)
@@ -42,7 +42,7 @@ int main()
 	}
 	
 	struct List* current = First;
-	while (current) // Первый вывод
+	while(current) // Первый вывод
 	{
 		printf("%d ", current->Info);
 		current = current->Next;
@@ -51,7 +51,6 @@ int main()
 	// Проверка на то отсортирован ли
 	current = First;
 	int flag = 0;
-	
 	while(current->Next)
 	{
 		if(current->Next->Info < current->Info)
@@ -63,13 +62,13 @@ int main()
 	}
 	if(flag) // Не отсортирован -> Сортируем
 	{
-		printf("\nList is not sorted.\n");
+		printf("\nList is nor sorted.\n");
 		printf("Result of sorting list: ");
 		while(flag)
 		{
 			flag = 0;
 			current = First;
-			while(current->Next)
+			while (current->Next)
 			{
 				if (current->Info > current->Next->Info)
 				{
@@ -101,7 +100,7 @@ int main()
 		current = First;
 		while(current)
 		{
-			if(current->Info > K && current->Info < L) // > 0 и < 5 -> Удалить
+			if(current->Info <= K || current->Info >= L) // <= 5 >= 9 -> Удалить
 			{
 				if(current->Previous && current->Next)
 				{
