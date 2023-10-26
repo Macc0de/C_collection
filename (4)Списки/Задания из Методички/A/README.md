@@ -1,6 +1,10 @@
 Уровень A - Легкий уровень сложности
 
 <p align="center">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/7a9e4ad9-72fa-481e-8fc7-52eeaeec8a28">
+</p>
+
+<p align="center">
   <img src="https://github.com/Macc0de/C_collection/assets/138070020/6371cbcb-6af7-4106-87ed-2ffa57787855">
 </p>
 
