@@ -59,7 +59,6 @@ int main()
 		current = current->Next;
 	}
 	
-	current = First;
 	struct List* elem = First;
 	struct List* previous = NULL;
 	while(elem)
