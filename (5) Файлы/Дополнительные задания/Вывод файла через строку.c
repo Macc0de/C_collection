@@ -12,3 +12,10 @@ int main()
 	
 	return 0;
 }
+/* (2) Способ. Проходится по каждой строке в файле и выводит ее:
+	char temp[N];
+	while(fgets(temp, sizeof(temp), file))
+	{
+		printf("%s", temp);
+	}
+*/
