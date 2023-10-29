@@ -2,7 +2,7 @@
 
 int main()
 {
-	FILE* file = fopen("filer\\sys.txt", "r");
+	FILE* file = fopen("data.txt", "r");
 	char buffer[30];
 
 	fgets(buffer, 30, file); // Записывает в строку buffer
