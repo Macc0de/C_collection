@@ -3,5 +3,5 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/b5a7e83b-9b6a-4d05-b6df-1159a9274bf3" width=450 height=300>
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/b5a7e83b-9b6a-4d05-b6df-1159a9274bf3" width=600 height=180>
 </p>
