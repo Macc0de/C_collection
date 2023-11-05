@@ -4,5 +4,5 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/8eedf84e-00e7-47cb-ae31-8b2285019687">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/b824991d-3266-45c8-8511-ab358446c027">
 </p>
