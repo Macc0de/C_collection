@@ -1,8 +1,8 @@
-// Создание и вывод двухсвязного списка
+// Создание и вывод двусвязного списка
 #include <stdio.h>
 #include <stdlib.h>
 
-struct List // Двухсвязный список
+struct List // Двусвязный список
 {
 	int data;
 	struct List* Next;
