@@ -1,6 +1,6 @@
 Пример тестирования на возвращаемое значение между библиотечной функцией и пользовательской:
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/4fc693f3-8d06-459a-959e-c3f5b555b9c3">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/fde9d5fa-febe-422e-b062-247073fb2bca">
 </p>
 
 <p align="center">
