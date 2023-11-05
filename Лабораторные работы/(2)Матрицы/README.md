@@ -3,5 +3,5 @@
 Элементы меняются местами пока не дойдут до границы(верхний треугольник).
 
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/6b577131-3c94-4131-be2d-cbb1ae6f2031" height="410" width="308">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/6b577131-3c94-4131-be2d-cbb1ae6f2031" height="410" width="315">
 </p>
