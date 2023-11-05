@@ -5,5 +5,5 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/75df30c7-72bf-4735-a183-329cddb87316" height="350" width = "550">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/75df30c7-72bf-4735-a183-329cddb87316" height="330" width = "520">
 </p>
