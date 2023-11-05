@@ -1,7 +1,7 @@
 Сборник кодов по теме "Строки"
 
 <p align="center">
-  <img src="https://github.com/Macc0de/C_collection/assets/138070020/ed970e11-8170-439e-aa69-85ed49742fe4" height="400" width = "500">
+  <img src="https://github.com/Macc0de/C_collection/assets/138070020/ed970e11-8170-439e-aa69-85ed49742fe4" height="360" width = "480">
 </p>
 
 <p align="center">
