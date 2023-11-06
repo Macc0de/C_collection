@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct List // Двухсвязный
+struct List // Двусвязный
 {
 	int data;
 	struct List* Next;
@@ -132,7 +132,7 @@ int main()
 		return 0;
 	}
 	
-	// Подсчет лишних элементов во втором списке
+	// Подсчёт лишних элементов во втором списке
 	int count = 0;
 	current = First2;
 	
