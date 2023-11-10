@@ -1,8 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "print.h"
 
-struct List* First;
+struct List
+{
+	int data;
+	struct List* Next;
+} *First;
 
 void addToList(struct List** head, int value)
 {
