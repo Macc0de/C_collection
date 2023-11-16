@@ -46,7 +46,7 @@ void addToList(struct List** head, char* word)
     current->Next = new_node;
 }
 
-void low_reg(char* word)
+void low_reg(char* word) // Перевод в нижний регистр
 {
 	while(*word)
 	{
@@ -78,7 +78,7 @@ int main()
 	scanf("%s", word);
 	low_reg(word);
 	
-	while(First)
+	while(First) // Проверка головы
 	{
 		if(strcmp(First->data, word) == 0)
 		{
@@ -94,7 +94,7 @@ int main()
 		struct List *temp;
 		current = First;
 		
-		while(current->Next)
+		while(current->Next) // Проверка всех остальных
 		{
 			temp = current->Next;
 			if(strcmp(temp->data, word) == 0)
@@ -113,7 +113,7 @@ int main()
 		return 0;
 	}
 	
-	current->data[0] = toupper(current->data[0]);
+	current->data[0] = toupper(current->data[0]); // Первое слово с большой буквы
 	while(current)
 	{
 		if(current->Next == NULL)
