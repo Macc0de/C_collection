@@ -1,3 +1,4 @@
+// Вывод через запись в строку
 #include <stdio.h>
 
 int main()
