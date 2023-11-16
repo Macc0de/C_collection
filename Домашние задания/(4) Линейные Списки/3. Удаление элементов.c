@@ -18,115 +18,105 @@ Output:
 */
 #include <stdio.h>
 #include <stdlib.h>
-#include <string.h>
-#define N 10000
 
 struct List
 {
 	int data;
 	struct List* Next;
-} *First;
+};
 
-void addToList(struct List** head, int value)
+struct List* init(int number)
 {
-    struct List* new_node = (struct List*)malloc(sizeof(struct List));
+	struct List* First;
+	First = (struct List*)malloc(sizeof(struct List));
 	
-    new_node->data = value;
-    new_node->Next = NULL;
+	First->data = number;
+	First->Next = NULL;
 	
-    if (*head == NULL)
-	{
-        *head = new_node;
-        return;
-    }
-
-    struct List* current = *head;
-    while (current->Next != NULL)
-	{
-        current = current->Next;
-    }
-    current->Next = new_node;
+	return First;
 }
 
-void Reverse(struct List** head)
+void addToList(struct List* First, int number)
 {
-	struct List *prev, *cur, *temp;
-	for (prev = NULL, cur = *head; cur; )
+	struct List *new_node;
+	new_node = (struct List*)malloc(sizeof(struct List));
+	
+	new_node->data = number;
+	new_node->Next = NULL;
+	
+	if(First == NULL)
 	{
-		temp = cur->Next;
-		
-		cur->Next = prev;
-		prev = cur;
-		cur = temp;
+		First = new_node;
+		return;
 	}
-	*head = prev;
+	
+	struct List* current = First;
+	while(current->Next)
+		current = current->Next;
+		
+	current->Next = new_node;
 }
 
 int main()
 {
-	int i, count = 0;
-	char** array = (char**)malloc(N * sizeof(char*));
-	for(i = 0; i < N; i++)
-	{
-		array[i] = (char*)malloc(N * sizeof(char));
-	}
-	
-	for(i = 0; ; i++)
-	{
-		scanf("%s", array[i]);
-		count++;
-		if(array[i][strlen(array[i]) - 1] == '.')
-		{
-			
-			array[i][strlen(array[i]) - 1] = '\0';
-			break;
-		}
-	}
+	int i = 0, num;
+	struct List* head = NULL;
 
-	for(i = 0; i < count && array[i][0]; i++)
+	while(scanf("%d", &num))
 	{
-		addToList(&First, atoi(array[i]));
+		if(i == 0)
+		{
+			head = init(num);
+		}
+		else 
+			addToList(head, num);
+		
+		i++;
 	}
 	
-	if (First == NULL) 
+	if (head == NULL) 
 	{
 		printf("NULL");
 		return 0;
 	}
 	
 	int k, n;
+	getchar();
 	scanf("%d %d", &k, &n);
 	
-	struct List* current = First;
-	struct List* previous = NULL;
 	i = 1;
-	
-	while(current)
+	while(head) // Проверка головы
 	{
-		if (i == k || i == n) // Проверка индекса элемента(отсчёт с 1)
+		if(i == k || i == n)
 		{
-			i++;
-			if(previous == NULL)
-			{
-				current = current->Next;
-				First = First->Next;
-				continue;
-			}
-			else if(previous != NULL)
-			{
-				previous->Next = current->Next;
-				current = current->Next;
-				continue;
-			}
+			head = head->Next;
+			i++; // Сместился индекс
 		}
-		
-		previous = current;
-		i++;
-		current = current->Next;
+		else
+		{
+			i++; // Сместился индекс
+			break;
+		}
 	}
 	
-	current = First;
-	if(current == NULL) // Проверка измененного списка
+	struct List *current = head, *prev;
+	if(head)
+	{
+		while(current->Next) // Проверка всех остальных
+		{
+			prev = current->Next;
+			if(i == k || i == n)
+			{
+				current->Next = prev->Next;
+			}
+			else
+				current = current->Next;
+			i++;
+		}
+	}
+	
+	current = head;
+	if(current == NULL)
 	{
 		printf("NULL");
 		return 0;
@@ -138,17 +128,12 @@ int main()
 		current = current->Next;
 	}
 	
-	while(First) 
+	while(head) 
 	{
-        struct List* temp = First->Next;
-        free(First);
-		First = temp;
+        struct List* temp = head->Next;
+        free(head);
+		head = temp;
     }
-	for(i = 0; i < N; i++) 
-	{
-        free(array[i]);
-    }
-    free(array);
 	
 	return 0;
 }
