@@ -6,12 +6,12 @@ void merge(struct List First, struct List Second)
 	
 	while(first_current && second_current)
 	{
-		struct List first_next = first_current-Next;
-		struct List second_next = second_current-Next;
+		struct List* first_next = first_current->Next;
+		struct List* second_next = second_current->Next;
 		
 		// Перестановки
-		first_current-Next = second_current;
-		second_current-Next = first_next;
+		first_current->Next = second_current;
+		second_current->Next = first_next;
 		
 		// Следующие элементы при итерации
 		first_current = first_next;
@@ -23,11 +23,11 @@ void merge(struct List First, struct List Second)
 	if(second_current)
 	{
 		first_current = First;
-		while(first_current-Next)
+		while(first_current->Next)
 		{
-			first_current = first_current-Next;
+			first_current = first_current->Next;
 		}
-		first_current-Next = second_current;
+		first_current->Next = second_current;
 	}
 	
 	Second = second_current; // Меняется корень второго списка
