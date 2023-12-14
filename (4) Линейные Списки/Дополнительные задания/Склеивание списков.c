@@ -2,7 +2,7 @@
 Сначала идет первый элемент первого списка, затем первый элемент второго списка и тд. */
 void merge(struct List First, struct List Second)
 {
-	struct List first_current = First, second_current = Second;
+	struct List *first_current = First, *second_current = Second;
 	
 	while(first_current && second_current)
 	{
