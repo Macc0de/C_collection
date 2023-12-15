@@ -20,14 +20,23 @@ void merge(struct List First, struct List Second)
 	
 	/* Если во втором списке остались лишние элементы после перестановки,
 	то дописываем в конец первого */
-	if(second_current)
+	if(First == NULL) // Если первый список пуст
 	{
-		first_current = First;
-		while(first_current->Next)
+		First = Second; // Добавление остатка
+		second_current = NULL;
+	}
+	else // Если первый список не пуст
+	{
+		if(second_current)
 		{
-			first_current = first_current->Next;
+			first_current = First;
+			while(first_current->Next)
+			{
+				first_current = first_current->Next;
+			}
+			first_current->Next = second_current; // Добавление остатка
+			second_current = NULL;
 		}
-		first_current->Next = second_current;
 	}
 	
 	Second = second_current; // Меняется корень второго списка
@@ -60,14 +69,23 @@ void merge(struct List* First, struct List** Second)
 	
 	/* Если во втором списке остались лишние элементы после престановки,
 	то дописываем в конец первого */
-	if(second_current)
+	if(First == NULL) // Если первый список пуст
 	{
-		first_current = First;
-		while(first_current->Next)
+		First = *Second;
+		second_current = NULL;
+	}
+	else // Если первый список не пуст
+	{
+		if(second_current)
 		{
-			first_current = first_current->Next;
+			first_current = First;
+			while(first_current->Next)
+			{
+				first_current = first_current->Next;
+			}
+			first_current->Next = second_current;
+			second_current = NULL;
 		}
-		first_current->Next = second_current;
 	}
 	
 	*Second = second_current; // Меняется корень второго списка
