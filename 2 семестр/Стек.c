@@ -1,3 +1,5 @@
+// Добавляет и удаляет элементы с начала
+// 2 3 -2 1 -5 1.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,56 +9,59 @@ struct Stack
 	struct Stack* Next;
 };
 
-int push(struct Stack** head, int value)
+int addToList(struct Stack** head, int data) // Список
 {
 	struct Stack* new_node = (struct Stack*)malloc(sizeof(struct Stack));
-
+	
 	if (new_node == NULL)
 		return 1;
-
-	new_node->data = value;
+	
+	new_node->data = data;
 	new_node->Next = NULL;
-
+	
 	if (*head == NULL)
 	{
 		*head = new_node;
 		return 0;
 	}
-
+	
 	struct Stack* current = *head;
 	while (current->Next != NULL)
 	{
 		current = current->Next;
 	}
 	current->Next = new_node;
-
+	
 	return 0;
 }
 
-int pop(struct Stack** head) // Удаляет с начала
+int push(struct Stack** head, int data) // Стек
 {
-	struct Stack* current = *head, *p_last = NULL;
-	while(current->Next != NULL)
-	{
-		if(current->Next->Next == NULL)
-			p_last = current;
-		current = current->Next;
-	}
+	struct Stack* new_node = (struct Stack*)malloc(sizeof(struct Stack));
 	
-	if(p_last == NULL) // В стеке остался 1 элемент
-		return 0;
-
-	int last = current->data;
-	p_last->Next = NULL;
-	return last; // Удаляемый последний(инфо. часть) сохраняем
+	if (new_node == NULL)
+		return 1;
+	
+	new_node->data = data;
+	new_node->Next = *head;
+	*head = new_node; // Последний добавленный элемент - голова
+	
+	return 0;
 }
 
-int inputList(struct Stack** head) // Создание очереди
+int pop(struct Stack** head) // Стек
+{
+	int last = (*head)->data;
+	(*head) = (*head)->Next;
+	return last;
+}
+
+int inputList(struct Stack** head) // Список
 {
 	int num, res;
 	while(scanf("%d", &num))
 	{
-		res = push(head, num); // Добавление в список
+		res = addToList(head, num); // Добавление в список
 		if (res == 1) // Ошибка выделения памяти
 			return 1;
 	}
@@ -71,35 +76,30 @@ void print(struct Stack* head)
 		return;
 	}
 	
-	struct Stack* current = head, *last = NULL;
-	while(last != head)
+	struct Stack* current = head;
+	while(current != NULL)
 	{
-		while(current->Next != last)
-		{
-			current = current->Next;
-		}
 		printf("%d ", current->data);
-		last = current;
-		current = head;
+		current = current->Next;
 	}
 }
 
 int main()
 {
 	struct Stack* head = NULL, *twohead = NULL, *current;
-	inputList(&head);
+	inputList(&head); // Список
 	getchar();
 	
 	int i, last = 1;
 	current = head;
-	if(current == NULL) // ??
-		print(twohead);
+	if(current == NULL) // Если список пуст
+		print(twohead); 
 	
 	while(current != NULL)
 	{
+		i = 0;
 		if(current->data > 0)
 		{
-			i = 0;
 			while(i < current->data)
 			{
 				push(&twohead, last);
@@ -109,19 +109,18 @@ int main()
 		}
 		else if(current->data < 0)
 		{
-			i = 0;
 			while(i < (current->data * (-1)))
 			{
 				if(twohead == NULL) // Нет элементов в стеке
 					break;
-					
+				
 				if(pop(&twohead) == 0)
 				{
 					twohead = NULL;
-					last--; // Уменьшаем значение текущего элемента
+					last--;
 					break;
 				}
-				last--; // Уменьшаем значение текущего элемента
+				last--;
 				i++;
 			}
 		}

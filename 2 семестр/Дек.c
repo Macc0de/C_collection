@@ -1,3 +1,6 @@
+// Элементы добавляются: в начало - число '+' Четное; В конец - число '+' НеЧетное.
+// Удаляются: из начала - число '-' НеЧетное; C конца - число '-' Четное.
+// 2 3 -2 1 -5 1.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,7 +10,33 @@ struct Deck
 	struct Deck* Next;
 };
 
-int right_push(struct Deck** head, int value)
+int addToList(struct Deck** head, int data) // Список
+{
+	struct Deck* new_node = (struct Deck*)malloc(sizeof(struct Deck));
+	
+	if (new_node == NULL)
+		return 1;
+	
+	new_node->data = data;
+	new_node->Next = NULL;
+	
+	if (*head == NULL)
+	{
+		*head = new_node;
+		return 0;
+	}
+	
+	struct Deck* current = *head;
+	while (current->Next != NULL)
+	{
+		current = current->Next;
+	}
+	current->Next = new_node;
+	
+	return 0;
+}
+
+int right_push(struct Deck** head, int value) // Очередь
 {
 	struct Deck* new_node = (struct Deck*)malloc(sizeof(struct Deck));
 
@@ -33,7 +62,7 @@ int right_push(struct Deck** head, int value)
 	return 0;
 }
 
-int left_push(struct Deck** head, int value)
+int left_push(struct Deck** head, int value) // Очередь
 {
 	struct Deck *new_node, *current;
 	current = *head;
@@ -43,9 +72,9 @@ int left_push(struct Deck** head, int value)
 	new_node->data = value;
 	
 	*head = new_node;
-}	
+}
 
-int right_pop(struct Deck** head) // Удаляет с начала
+int right_pop(struct Deck** head) // Очередь
 {
 	struct Deck* current = *head, *p_last = NULL;
 	while(current->Next != NULL)
@@ -63,19 +92,19 @@ int right_pop(struct Deck** head) // Удаляет с начала
 	return last; // Удаляемый последний(инфо. часть) сохраняем
 }
 
-int left_pop(struct Deck** head) // Удаляет с начала
+int left_pop(struct Deck** head) // Очередь
 {
 	int last = (*head)->data;
 	(*head) = (*head)->Next;
 	return last;
 }
 
-int inputList(struct Deck** head) // Создание очереди
+int inputList(struct Deck** head) // Список
 {
 	int num, res;
 	while(scanf("%d", &num))
 	{
-		res = right_push(head, num); // Добавление в список
+		res = addToList(head, num); // Добавление в список
 		if (res == 1) // Ошибка выделения памяти
 			return 1;
 	}
@@ -90,28 +119,23 @@ void print(struct Deck* head)
 		return;
 	}
 	
-	struct Deck* current = head, *last = NULL;
-	while(last != head)
+	struct Deck* current = head;
+	while(current != NULL)
 	{
-		while(current->Next != last)
-		{
-			current = current->Next;
-		}
 		printf("%d ", current->data);
-		last = current;
-		current = head;
+		current = current->Next;
 	}
 }
 
 int main()
 {
 	struct Deck* head = NULL, *twohead = NULL, *current;
-	inputList(&head);
+	inputList(&head); // Список
 	getchar();
 	
 	int i, last;
 	current = head;
-	if(current == NULL) // ??
+	if(current == NULL) // Если список пуст
 		print(twohead);
 	
 	while(current != NULL)
@@ -120,8 +144,17 @@ int main()
 		last = 1;
 		if(current->data > 0)
 		{
-			if(current->data % 2 == 0) // Добавление справа
-			{ // 2 - 1 2
+			if(current->data % 2 == 0) // Добавление слева
+			{
+				while(i < current->data)
+				{ // 2 - 1 2
+					left_push(&twohead, last);
+					last++;
+					i++;
+				}
+			}
+			else // Добавление справа - НеЧетное
+			{ // 3 - 3 2 1
 				while(i < current->data)
 				{
 					right_push(&twohead, last);
@@ -129,37 +162,28 @@ int main()
 					i++;
 				}
 			}
-			else // Добавление слева
-			{ // 3 - 3 2 1
-				while(i < current->data)
-				{
-					left_push(&twohead, last);
-					last++;
-					i++;
-				}
-			}
 		}
 		else if(current->data < 0)
 		{
-			if(current->data % 2 == 0) // Удаление слева
+			if(current->data % 2 == 0) // Удаление справа
 			{
 				while(i < (current->data * (-1)))
 				{
 					if(twohead == NULL) // Нет элементов в очереди
 						break;
 						
-					left_pop(&twohead);
+					right_pop(&twohead);
 					i++;
 				}
 			}
-			else // Удаление справа
+			else // Удаление слева - НеЧетное
 			{
 				while(i < (current->data * (-1)))
 				{
 					if(twohead == NULL) // Нет элементов в очереди
 						break;
-						
-					if(right_pop(&twohead) == 0)
+					
+					if(left_pop(&twohead) == 0)
 					{
 						twohead = NULL;
 						break;
