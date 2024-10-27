@@ -1,3 +1,5 @@
+// Удаляет элементы с начала и Добавляет в конец
+// 2 3 -2 2 -6 1.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -7,14 +9,14 @@ struct Queue
 	struct Queue* Next;
 };
 
-int push(struct Queue** head, int value)
+int push(struct Queue** head, int data) // Очередь и Список
 {
 	struct Queue* new_node = (struct Queue*)malloc(sizeof(struct Queue));
 
 	if (new_node == NULL)
 		return 1;
 
-	new_node->data = value;
+	new_node->data = data;
 	new_node->Next = NULL;
 
 	if (*head == NULL)
@@ -33,17 +35,17 @@ int push(struct Queue** head, int value)
 	return 0;
 }
 
-int pop(struct Queue** head) // Удаляет с начала
+void pop(struct Queue** head) // Очередь
 {
-	int last = (*head)->data;
+	struct Queue* temp = (*head);
 	(*head) = (*head)->Next;
-	return last;
+	free(temp);
 }
 
-int inputList(struct Queue** head) // Создание очереди
+int inputList(struct Queue** head) // Список
 {
 	int num, res;
-	while (scanf("%d", &num))
+	while(scanf("%d", &num))
 	{
 		res = push(head, num); // Добавление в список
 		if (res == 1) // Ошибка выделения памяти
@@ -61,29 +63,53 @@ void print(struct Queue* head)
 	}
 	
 	struct Queue* current = head;
-	while (current != NULL)
+	while(current != NULL) // Вывод очереди
 	{
 		printf("%d ", current->data);
 		current = current->Next;
 	}
 }
 
+void free_memory(struct Queue* head, struct Queue* twohead)
+{
+	struct Queue* temp, *current = head;
+
+	while(current != NULL)
+	{
+		temp = current->Next;
+		free(current);
+
+		current = temp;
+	}
+
+	current = twohead;
+	while(current != NULL)
+	{
+		temp = current->Next;
+		free(current);
+
+		current = temp;
+	}
+}
+
 int main()
 {
 	struct Queue* head = NULL, *twohead = NULL, *current;
-	inputList(&head);
+	int flag = 0;
+	inputList(&head); // Список
 	getchar();
 	
 	int i, last = 1;
 	current = head;
-	if(current == NULL) // ??
-		print(twohead);
+	if(current == NULL) // Если список пуст
+		print(head);
 	
 	while(current != NULL)
 	{
 		i = 0;
 		if(current->data > 0)
 		{
+			flag = 1; // 0 0 0
 			while(i < current->data)
 			{
 				push(&twohead, last);
@@ -93,14 +119,20 @@ int main()
 		}
 		else if(current->data < 0)
 		{
+			flag = 1; // 0 0 0
 			while(i < (current->data * (-1)))
 			{
-				if(twohead == NULL) // Нет элементов в очереди
+				if(twohead == NULL) // Не осталось элементов в очереди
 					break;
-					
+				
 				pop(&twohead);
 				i++;
 			}
+		}
+		else
+		{
+			current = current->Next;
+			continue;
 		}
 		
 		print(twohead); // Вывод текущий
@@ -109,6 +141,11 @@ int main()
 		
 		current = current->Next;
 	}
+	
+	if(twohead == NULL && flag == 0) // 0 0 0
+		printf("0");
+	
+	free_memory(head, twohead);
 	
 	return 0;
 }

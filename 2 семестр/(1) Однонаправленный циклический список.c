@@ -26,9 +26,7 @@ int addToList(struct List** head, int value)
 
 	struct List* current = *head;
 	while (current->Next != *head)
-	{
 		current = current->Next;
-	}
 	current->Next = new_node;
 
 	return 0;
@@ -49,6 +47,9 @@ int inputList(struct List** head)
 void print(struct List* head)
 {
 	struct List* current = head;
+	if(current == NULL)
+		return;
+	
 	while (1)
 	{
 		printf("%d ", current->data);
@@ -76,6 +77,18 @@ void second_print(struct List* head, struct List* elem)
 	print(elem); // Найден элемент =k
 }
 
+void free_memory(struct List* head)
+{
+	struct List* tmp, *current = head;
+	do 
+	{
+		tmp = current->Next;
+		free(current);
+		current = tmp;
+	}
+	while(current != head);
+}
+
 int main()
 {
 	struct List* head = NULL, *current;
@@ -84,6 +97,9 @@ int main()
 	
 	int k;
 	scanf("%d", &k);
+	
+	print(head);
+	printf("\n");
 	
 	current = head;
 	while (current != NULL)
@@ -100,6 +116,11 @@ int main()
 	}
 	
 	second_print(head, current);
+	
+	if(head == NULL)
+		return 0;
+	
+	free_memory(head);
 	
 	return 0;
 }

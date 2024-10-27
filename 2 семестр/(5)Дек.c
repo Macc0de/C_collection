@@ -1,6 +1,7 @@
 // Элементы добавляются: в начало - число '+' Четное; В конец - число '+' НеЧетное.
 // Удаляются: из начала - число '-' НеЧетное; C конца - число '-' Четное.
 // 2 3 -2 1 -5 1.
+// 2 0 0 -2.
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -10,33 +11,7 @@ struct Deck
 	struct Deck* Next;
 };
 
-int addToList(struct Deck** head, int data) // Список
-{
-	struct Deck* new_node = (struct Deck*)malloc(sizeof(struct Deck));
-	
-	if (new_node == NULL)
-		return 1;
-	
-	new_node->data = data;
-	new_node->Next = NULL;
-	
-	if (*head == NULL)
-	{
-		*head = new_node;
-		return 0;
-	}
-	
-	struct Deck* current = *head;
-	while (current->Next != NULL)
-	{
-		current = current->Next;
-	}
-	current->Next = new_node;
-	
-	return 0;
-}
-
-int right_push(struct Deck** head, int value) // Очередь
+int right_push(struct Deck** head, int value) // Очередь и Список
 {
 	struct Deck* new_node = (struct Deck*)malloc(sizeof(struct Deck));
 
@@ -64,39 +39,45 @@ int right_push(struct Deck** head, int value) // Очередь
 
 int left_push(struct Deck** head, int value) // Очередь
 {
-	struct Deck *new_node, *current;
-	current = *head;
+	struct Deck *new_node;
 	new_node = (struct Deck*)malloc(sizeof(struct Deck));
 	
-	new_node->Next = current;
+	new_node->Next = *head;
 	new_node->data = value;
 	
 	*head = new_node;
 }
 
-int right_pop(struct Deck** head) // Очередь
+void right_pop(struct Deck** head) // Очередь
 {
+	if((*head) != NULL && (*head)->Next == NULL) // 1 элемент остался
+	{
+		(*head) = NULL;
+		return;
+	}
+	
 	struct Deck* current = *head, *p_last = NULL;
 	while(current->Next != NULL)
 	{
 		if(current->Next->Next == NULL)
+		{
 			p_last = current;
+		}
+
 		current = current->Next;
 	}
 	
-	if((p_last == NULL))
-		return 0;
+	if(p_last == NULL)
+		return;
 
-	int last = current->data;
 	p_last->Next = NULL;
-	return last; // Удаляемый последний(инфо. часть) сохраняем
 }
 
-int left_pop(struct Deck** head) // Очередь
+void left_pop(struct Deck** head) // Очередь
 {
-	int last = (*head)->data;
+	struct Deck* temp = (*head);
 	(*head) = (*head)->Next;
-	return last;
+	free(temp);
 }
 
 int inputList(struct Deck** head) // Список
@@ -104,7 +85,7 @@ int inputList(struct Deck** head) // Список
 	int num, res;
 	while(scanf("%d", &num))
 	{
-		res = addToList(head, num); // Добавление в список
+		res = right_push(head, num); // Добавление в список
 		if (res == 1) // Ошибка выделения памяти
 			return 1;
 	}
@@ -120,10 +101,32 @@ void print(struct Deck* head)
 	}
 	
 	struct Deck* current = head;
-	while(current != NULL)
+	while(current != NULL) // Вывод
 	{
 		printf("%d ", current->data);
 		current = current->Next;
+	}
+}
+
+void free_memory(struct Queue* head, struct Queue* twohead)
+{
+	struct Queue* temp, *current = head;
+
+	while(current != NULL)
+	{
+		temp = current->Next;
+		free(current);
+
+		current = temp;
+	}
+
+	current = twohead;
+	while(current != NULL)
+	{
+		temp = current->Next;
+		free(current);
+
+		current = temp;
 	}
 }
 
@@ -133,10 +136,10 @@ int main()
 	inputList(&head); // Список
 	getchar();
 	
-	int i, last;
+	int i, last, flag = 0;
 	current = head;
 	if(current == NULL) // Если список пуст
-		print(twohead);
+		print(head);
 	
 	while(current != NULL)
 	{
@@ -144,10 +147,11 @@ int main()
 		last = 1;
 		if(current->data > 0)
 		{
+			flag = 1; // 0 0 0
 			if(current->data % 2 == 0) // Добавление слева
-			{
+			{ // 2 - 1 2
 				while(i < current->data)
-				{ // 2 - 1 2
+				{ 
 					left_push(&twohead, last);
 					last++;
 					i++;
@@ -165,6 +169,7 @@ int main()
 		}
 		else if(current->data < 0)
 		{
+			flag = 1; // 0 0 0
 			if(current->data % 2 == 0) // Удаление справа
 			{
 				while(i < (current->data * (-1)))
@@ -183,22 +188,28 @@ int main()
 					if(twohead == NULL) // Нет элементов в очереди
 						break;
 					
-					if(left_pop(&twohead) == 0)
-					{
-						twohead = NULL;
-						break;
-					}
+					left_pop(&twohead); // Удаление
 					i++;
 				}
 			}
 		}
+		else
+		{
+			current = current->Next;
+			continue;
+		}
 		
 		print(twohead); // Вывод текущий
-		//if(current->Next != NULL)
 		printf("\n");
 		
 		current = current->Next;
 	}
+	
+	if(twohead == NULL && head != NULL && flag == 0)
+		printf("0");
+	
+	// Очистка памяти
+	free_memory(head, twohead);
 	
 	return 0;
 }
